@@ -24,21 +24,53 @@ else Console.Write("Это не трехзначное число");
 645 -> 5
 78 -> третьей цифры нет
 32679 -> 6
-*/
+
 int FindThirdDigit(int n)
 {
-    int dig = 0;
-    if (n > 99 && n < 1000) dig = n % 10;
-    else if (n > 999) dig = (n / 100) % 10;
-    else dig = -1;
-
+    int dig = n % 10;
     return dig;
 }
 
-Console.WriteLine("Введите число: ");
+Console.Write("Введите число: ");
 int num = Convert.ToInt32(Console.ReadLine());
-int digit = FindThirdDigit(num);
+int digit = 0;
 
-if (digit == -1) Console.WriteLine(num + " -> третьей цифры нет");
-else Console.WriteLine(num + " -> " + digit);
+Console.Write(num + " -> ");
+
+if (num > 99 && num < 1000)
+{
+    digit = FindThirdDigit(num);
+    Console.Write(digit);
+}
+else if (num > 999) 
+{
+    while(num > 1000) num = num/10;
+    digit = FindThirdDigit(num);
+    Console.Write(digit);
+}
+else Console.Write("третьей цифры нет");
+
+Задача 15: Напишите программу, которая принимает на вход цифру, обозначающую день недели, 
+и проверяет, является ли этот день выходным.
+6 -> да
+7 -> да
+1 -> нет
+*/
+bool IsItWeekend(int n)
+{
+    bool d = false;
+    if(n==6 || n==7) d = true;
+    return d;
+}
+
+Console.Write("Введите число от 1 до 7: ");
+int day = Convert.ToInt32(Console.ReadLine());
+
+if(day > 0 && day < 8) 
+{
+    bool weekend = IsItWeekend(day);
+    if(weekend)  Console.Write(day + " -> да");
+    else Console.Write(day + " -> нет");
+}
+else Console.Write(day + " -> таких дней недели нет");
 
