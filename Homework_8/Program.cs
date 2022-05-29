@@ -34,7 +34,7 @@ void ShowArray(int[,] array)
     }
 }
 
-int[,] PutInOrderElementsOfRow(int[,] array)
+/*int[,] PutInOrderElementsOfRow(int[,] array)
 {
     for(int i=0; i < array.GetLength(0); i++)
     {
@@ -62,7 +62,7 @@ int[,] myArray = CreateArray(rows, columns);
 ShowArray(myArray);
 Console.WriteLine();
 ShowArray(PutInOrderElementsOfRow(myArray));
-
+*/
 
 // Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, 
 //которая будет находить строку с наименьшей суммой элементов.
@@ -74,7 +74,41 @@ ShowArray(PutInOrderElementsOfRow(myArray));
 // Программа считает сумму элементов в каждой строке 
 //и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
+void MinSumOfElementsInRow(int[,] array)
+{
+    int sum = 0, iOfMinSum = 0, minSum = 0;
+    for(int i=0; i < array.GetLength(0); i++)
+    {
+        for(int j=0; j < array.GetLength(1); j++)
+        {
+            sum+=array[i, j];
+        }
+        
+        if(i==0) 
+        {
+            minSum=sum;
+            //Console.WriteLine(i + " " + sum + " " + minSum);
+        }
+        else
+        {
+            //Console.WriteLine(i + " " + sum + " " + minSum);
+            if(sum < minSum) 
+            {
+                minSum = sum;
+                iOfMinSum = i;
+                //Console.WriteLine(i + " " + sum + " " + minSum);
+            }
+        }
+    }
+    Console.WriteLine("В " + iOfMinSum + " строке минимальная сумма");
+}
 
+int rows = new Random().Next(2, 8);
+int columns = new Random().Next(2, 8);
+int[,] myArray = CreateArray(rows, columns);
+ShowArray(myArray);
+Console.WriteLine();
+MinSumOfElementsInRow(myArray);
 
 // Задача 62. Заполните спирально массив 4 на 4.
 // Например, на выходе получается вот такой массив:
