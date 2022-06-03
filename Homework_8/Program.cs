@@ -73,7 +73,7 @@ ShowArray(PutInOrderElementsOfRow(myArray));
 // 5 2 6 7
 // Программа считает сумму элементов в каждой строке 
 //и выдаёт номер строки с наименьшей суммой элементов: 1 строка
-
+/*
 void MinSumOfElementsInRow(int[,] array)
 {
     int sum = 0, iOfMinSum = 0, minSum = 0;
@@ -109,6 +109,7 @@ int[,] myArray = CreateArray(rows, columns);
 ShowArray(myArray);
 Console.WriteLine();
 MinSumOfElementsInRow(myArray);
+*/
 
 // Задача 62. Заполните спирально массив 4 на 4.
 // Например, на выходе получается вот такой массив:
@@ -116,3 +117,50 @@ MinSumOfElementsInRow(myArray);
 // 12 13 14 5
 // 11 16 15 6
 // 10 9 8 7
+
+int[,] CreateArraySpiral(int n)
+{
+    int[,] array = new int[n,n];
+    int countSpiral = 0;    //каждый цикл заполняет спираль, считаю сколько спиралей в матрице.
+    if(n % 2 == 0) countSpiral = n/2;
+    else countSpiral = n/2 + 1;
+    int num = 1;    //значение ячеек
+    int i = 0;
+    int j = 0;
+
+    //в каждом цикле обхожу спираль, начиная с верхнего диагонального элемента
+    //первый цикл обходит внешнюю спираль - перую строку, последний столбец, последнюю строку и первый столбец. 
+    for (int count = 0; count < countSpiral; count++)   
+    {
+        i = count;
+        for (j = count; j < n; j++)
+        {
+            array[i, j] = num;
+            num += 1;
+        }
+        j -= 1; //не получилось без корректировки индексов, так как на последнем витке цикла все равно или добавляет или удаляет 1.
+        for (i = count + 1; i < n; i++)
+        {
+            array[i, j] = num;
+            num += 1;
+        }
+        i -= 1;
+        for (j = j - 1; j >= count; j--)
+        {
+            array[i, j] = num;
+            num += 1;
+        }
+        j += 1;
+        for (i = i - 1; i >= count + 1; i--)
+        {
+            array[i, j] = num;
+            num += 1;
+        }
+        n-=1;
+    }
+    return array;
+}
+
+int[,] myArray = CreateArraySpiral(5);
+ShowArray(myArray);
+// извините, не стала добавлять возможность ввода размерности матрицы, попробовала от 2 до 5. Торопилась уже)
